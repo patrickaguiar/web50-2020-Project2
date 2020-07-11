@@ -31,11 +31,11 @@ DataSetter - A class responsable for setting data to models
 Views - Functions responsable for manipulate and validate data and display the templates 
 
 ### If you want to colaborate, he're a list of things that I believe could help: ###
-- [] Security Improvements: Set Security Standarts for Passwords, set a minimun time interval between each login attempt
-- [] Translate 
-- [] Separate DataGetter, DataSetter and views in diferent files and make sure that they just doing their responsabilities
-- [] Test the application
-- [] Implement javascript in order to make the application more human friendly
-- [] Design improvements
-- [] Connect the application to a real payment API
-- [] Improve this list 
+- [ ] Security Improvements: Set Security Standarts for Passwords, set a minimun time interval between each login attempt
+- [ ] Translate 
+- [ ] Separate DataGetter, DataSetter and views in diferent files and make sure that they just doing their responsabilities
+- [ ] Test the application
+- [ ] Implement javascript in order to make the application more human friendly
+- [ ] Design improvements
+- [ ] Connect the application to a real payment API
+- [ ] Improve this list 
