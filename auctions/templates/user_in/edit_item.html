@@ -1,0 +1,75 @@
+{% extends 'user_in/layout.html' %}
+{% block content %}
+
+    <div class="row my-5 justify-content-center align-items-center">
+        <div class="card shadow login__card">
+            <div class="card-header text-center">
+                <h2 class="m-0 p-0 login__card__title" style="font-family: 'Anton', sans-serif">EDIT LISTING</h2>
+            </div>
+            <div class="card-body">
+                {% if message %}
+                    <div class="alert alert-primary" role="alert">
+                       {{ message }}
+                    </div>
+                {% endif %}
+                <form action="{% url 'edit_listing' item.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-control" type="text" value="{{item.name}}" name="name" placeholder="Listing Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" value="{{item.descricao_curta}}" name="descricao_curta" placeholder="Short Description">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="descricao" placeholder="Description" class="form-control" rows="10" style="width: 100%;">{{item.descricao}}</textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                        </div>
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" value="{{item.foto}}" name="foto" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                          <label class="custom-file-label" for="inputGroupFile01">Upload Foto</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <fieldset disabled>
+                                <input class="form-control" value="{{item.preco_atual}}" type="number" name="preco" placeholder="Listing Price">
+                            </fieldset>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <fieldset disabled>
+                            <select name="categoria" class="custom-select">
+                                <option selected>Category</option>
+                                {% for category in categories %}
+                                <option value="{{category.id}}">{{category}}</option>
+                                {% endfor %}
+                            </select>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="custom-control custom-switch mb-3">
+                        <input name="status_venda" type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <label class="custom-control-label" for="customSwitch1">I've sold this listing</label>
+                    </div>
+                    <input class="btn btn-info btn-block" type="submit" value="Create Listing">
+                </form>
+            </div>
+        </div>
+            
+    </div>
+
+    <div class="row my-5 justify-content-center align-items-center">
+        <div class="card shadow login__card">
+            <div class="card-body">
+                <form action="{% url 'delete_listing' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="number" value="{{item.id}}" name="item_id" class="d-none">
+                    <input class="btn btn-danger btn-block" type="submit" value="Delete Listing">
+                </form>
+            </div>
+        </div>
+            
+    </div>
+{% endblock %}

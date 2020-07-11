@@ -1,0 +1,140 @@
+{% extends 'user_in/layout.html' %}
+{% block content %}
+
+<div class="row justify-content-center m-3">
+    <div class="card shadow">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <div class="card-header listing__card__header h-100" 
+                style="background-image: url({{item.foto.url}}); min-height: 30vh;">  
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{item.name}} ({% if item.status_venda %}VENDIDO{% else %}R$ {{item.preco_atual}}{% endif %})</h5>
+              <p class="card-text"><small class="text-muted">{{item.descricao_curta}}</small></p>
+              <p class="card-text">{{item.descricao}}</p>
+                {% if not my_item %}
+                {% if not watchlist %}
+                <a href="{% url 'add_watchlist' item.id %}" class="btn btn-danger btn-block">Add to your Watchlist</a>
+                {% else %}
+                <a href="{% url 'remove_watchlist' item.id %}" class="btn btn-danger btn-block">Remove from your Watchlist</a>
+                {% endif %}
+                {% else %} 
+                <a href="{% url 'edit_listing' item.id %}" class="btn btn-danger btn-block {% if item.status_venda %} disabled {% endif %}">Edit Listing</a>
+                {% endif %}
+            </div>  
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="row my-5 justify-content-center align-items-center">
+    <div class="card shadow login__card item__card w-100">
+        <div class="card-header text-center">
+            <h2 class="m-0 p-0 login__card__title" style="font-family: 'Anton', sans-serif">FAÇA UMA OFERTA</h2>
+        </div>
+        <div class="card-body">
+            {% if message_oferta %}
+                <div class="alert alert-primary" role="alert">
+                   {{ message_oferta }}
+                </div>
+            {% endif %}
+            <form action="{% url 'oferta' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col">
+                        <input class="form-control" type="number" name="preco" placeholder="Oferta (R$)">
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <input value="{{item.id}}" name="item_id" class="d-none">
+                {% if item.status_venda %}
+                <fieldset disabled>
+                    <button class="btn btn-success btn-block" type="submit">Ofertar</button>
+                </fieldset>
+                {% else %}
+                    <button class="btn btn-success btn-block" type="submit">Ofertar</button>
+                {% endif %}
+            </form>
+        </div>
+    </div> 
+</div>
+
+<div class="row my-5 justify-content-center align-items-center">
+    <div class="card shadow login__card item__card w-100">
+        <div class="card-header text-center">
+            <h2 class="m-0 p-0 login__card__title" style="font-family: 'Anton', sans-serif">OFERTAS</h2>
+        </div>
+        <div class="card-body">
+            <table class="table text-center">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Usuário</th>
+                    <th scope="col">Oferta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for oferta in ofertas %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{oferta.user.first_name}} {{oferta.user.last__name}}</td>
+                    <td>{{oferta.preco}}</td>
+                  </tr>
+                  <tr>
+                      {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div> 
+</div>
+
+<div class="row my-5 justify-content-center align-items-center">
+    <div class="card shadow login__card item__card w-100">
+        <div class="card-header text-center">
+            <h2 class="m-0 p-0 login__card__title" style="font-family: 'Anton', sans-serif">FAÇA UM COMENTÁRIO</h2>
+        </div>
+        <div class="card-body">
+            {% if message %}
+                <div class="alert alert-primary" role="alert">
+                   {{ message }}
+                </div>
+            {% endif %}
+            <form action="{% url 'comentario' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <textarea name="text" rows="10" class="form-control w-100"></textarea>
+                </div>
+                <input value="{{item.id}}" name="item_id" class="d-none">
+                <input class="btn btn-info btn-block" type="submit" value="Comentar">
+            </form>
+        </div>
+    </div> 
+</div>
+
+<div class="row my-5 justify-content-center align-items-center">
+    <div class="card shadow login__card item__card w-100">
+        <div class="card-header text-center">
+            <h2 class="m-0 p-0 login__card__title" style="font-family: 'Anton', sans-serif">COMENTÁRIOS</h2>
+        </div>
+        <div class="card-body">
+            {% for comentario in comentarios %}
+            <div class="row mx-3 my-3">
+                <div class="col">
+                    <h5><i class="fas fa-user"></i> {{comentario.user.first_name}} {{ comentario.user.last_name }}</h5>
+                    <p class="mb-0">{{ comentario.text }}</p>
+                    <small>{{ comentario.data_criacao }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div> 
+</div>
+
+{% endblock %}

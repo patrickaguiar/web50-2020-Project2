@@ -1,0 +1,29 @@
+#nav1__brand__icon{
+    font-size: 19vh;
+}
+
+#nav1__brand{
+    font-family: 'Anton', sans-serif;
+    font-size: 15vh;
+}
+
+.nav2__link{
+    text-transform: uppercase;
+}
+
+.listing__card__header{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 30vh;
+}
+
+@media(min-width: 768px){
+    .login__card{
+        min-width: 750px;
+    }
+
+    .item__card{
+        min-width: 80vw;
+    }
+}

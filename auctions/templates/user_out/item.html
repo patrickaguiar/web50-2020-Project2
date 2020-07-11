@@ -1,0 +1,71 @@
+{% extends 'user_out/layout.html' %}
+{% block content %}
+
+<div class="row justify-content-center m-3">
+    <div class="card shadow">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <div class="card-header listing__card__header h-100" 
+                style="background-image: url({{item.foto.url}}); min-height: 30vh;">  
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{item.name}} ({% if item.status_venda %}VENDIDO{% else %}R$ {{item.preco_atual}}{% endif %})</h5>
+              <p class="card-text"><small class="text-muted">{{item.descricao_curta}}</small></p>
+              <p class="card-text">{{item.descricao}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="row my-5 justify-content-center align-items-center">
+    <div class="card shadow login__card item__card w-100">
+        <div class="card-header text-center">
+            <h2 class="m-0 p-0 login__card__title" style="font-family: 'Anton', sans-serif">OFERTAS</h2>
+        </div>
+        <div class="card-body">
+            <table class="table text-center">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Usuário</th>
+                    <th scope="col">Oferta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for oferta in ofertas %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{oferta.user.first_name}} {{oferta.user.last__name}}</td>
+                    <td>{{oferta.preco}}</td>
+                  </tr>
+                  <tr>
+                      {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div> 
+</div>
+
+<div class="row my-5 justify-content-center align-items-center">
+    <div class="card shadow login__card item__card w-100">
+        <div class="card-header text-center">
+            <h2 class="m-0 p-0 login__card__title" style="font-family: 'Anton', sans-serif">COMENTÁRIOS</h2>
+        </div>
+        <div class="card-body">
+            {% for comentario in comentarios %}
+            <div class="row mx-3 my-3">
+                <div class="col">
+                    <h5><i class="fas fa-user"></i> {{comentario.user.first_name}} {{ comentario.user.last_name }}</h5>
+                    <p class="mb-0">{{ comentario.text }}</p>
+                    <small>{{ comentario.data_criacao }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div> 
+</div>
+
+{% endblock %}

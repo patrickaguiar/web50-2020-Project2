@@ -1,0 +1,30 @@
+{% extends 'user_in/layout.html' %}
+{% block content %}
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 my-3">
+
+    {% for item in itens %}
+
+    <div class="col my-2">
+        <div class="card shadow">
+            <div class="card-header listing__card__header"
+                style="background-image: url({{item.foto.url}});">  
+            </div>
+            <div class="card-body">
+                <span class="card-title h4 text-danger">{% if item.status_venda %}VENDIDO{% else %}R$ {{item.preco_atual}}{% endif %}</span>
+                <p class="mt-2 mb-0">{{item.name}}</p>
+                <small class="listing__card__description">
+                    {{item.descricao_curta}}
+                </small>
+                <a href="{% url 'item' item.id %}" class="btn btn-success btn-block mt-3">Saiba Mais</a>
+            </div>
+            <div class="card-footer text-center">
+                <small>Created By: {{item.user.first_name}}  {{item.user.last_name}}</small>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

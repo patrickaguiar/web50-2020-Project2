@@ -1,0 +1,23 @@
+{% extends 'user_out/layout.html' %}
+{% block content %}
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 my-3">
+
+    {% for category in categories %}
+
+    <div class="col my-2">
+        <div class="card shadow">
+            <div class="card-header listing__card__header"
+                style="background-image: url({{category.foto.url}});">  
+            </div>
+            <div class="card-body text-center">
+                <span class="card-title h4 text-danger">{{category.name}}</span>
+                <a href="{% url 'categories_id' category.id %}" class="btn btn-success btn-block mt-3">Saiba Mais</a>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}
