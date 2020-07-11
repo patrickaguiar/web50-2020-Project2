@@ -26,8 +26,11 @@ python manage.py runserver
 
 ### Architecture ###
 Besides Django usual models, we used tree constructors in order to make our application readable:
+
 DataGetter - A class responsable for taking data from models 
-DataSetter - A class responsable for setting data to models
+
+DataSetter - A class responsable for setting data to 
+
 Views - Functions responsable for manipulate and validate data and display the templates 
 
 ### If you want to colaborate, he're a list of things that I believe could help: ###
