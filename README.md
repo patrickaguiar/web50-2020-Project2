@@ -25,7 +25,7 @@ python manage.py runserver
 - Open the link command line gives to you in your web browser. 
 
 ### Architecture ###
-Besides Django usual models, we used tree constructors in order to make our application readable:
+Besides Django usual models, we used three constructors in order to make our application readable:
 
 DataGetter - A class responsable for taking data from models 
 
